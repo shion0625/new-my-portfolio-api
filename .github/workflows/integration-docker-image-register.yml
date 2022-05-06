@@ -1,0 +1,50 @@
+name: Docker Image Register
+
+on:
+  pull_request:
+    paths:
+      - 'infra/*'
+
+jobs:
+  docker-image-register:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push app Container
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./infra/docker/php/Dockerfile
+          push: true
+          tags: ucanlab/docker-laravel-github-actions-app:latest
+
+      - name: Build & Push nginx Container
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./infra/docker/nginx/Dockerfile
+          push: true
+          tags: ucanlab/docker-laravel-github-actions-web:latest
+
+      - name: Build & Push db Container
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./infra/docker/mysql/Dockerfile
+          push: true
+          tags: ucanlab/docker-laravel-github-actions-db:latest
