@@ -52,7 +52,7 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSkillRequest $request, $id)
     {
         if(Skill::where('id',$id)->exists()){
             $skill = Skill::find($id);
@@ -60,7 +60,6 @@ class SkillController extends Controller
             $skill->language = is_null($request->language) ? $skill->language : $request->language;
             $skill->experience = is_null($request->experience) ? $skill->experience : $request->experience;
             $skill->save();
-
         return response()->json([
                 'success' => true,
                 'message' => 'records update successfully',
@@ -81,6 +80,18 @@ class SkillController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Skill::where('id', $id)->exists()) {
+            $skill = Skill::find($id);
+            $skill->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'records delete successfully',
+            ], 202);
+        } else {
+            return response()->json([
+            'success' => false,
+            "message" => "skill not found"
+            ], 404);
+        }
     }
 }
