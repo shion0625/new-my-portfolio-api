@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -30,7 +30,7 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreateSkillRequest $request)
@@ -48,17 +48,17 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateSkillRequest $request, $id)
     {
         if(Skill::where('id',$id)->exists()){
             $skill = Skill::find($id);
-            $skill->category = is_null($request->category) ? $skill->category : $request->category;
-            $skill->language = is_null($request->language) ? $skill->language : $request->language;
-            $skill->experience = is_null($request->experience) ? $skill->experience : $request->experience;
+            $skill->category = null === $request->category ? $skill->category : $request->category;
+            $skill->language = null === $request->language ? $skill->language : $request->language;
+            $skill->experience = null === $request->experience ? $skill->experience : $request->experience;
             $skill->save();
         return response()->json([
                 'success' => true,
@@ -75,7 +75,7 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
