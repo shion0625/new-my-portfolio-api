@@ -22,7 +22,7 @@ class SkillController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'succeeded in retrieving the list.',
+            'message' => 'succeeded in retrieving the skill list.',
             $skill_response
         ], 200);
     }

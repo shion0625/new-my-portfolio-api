@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Work;
+use App\Http\Resources\WorkResource;
+use App\Http\Requests\StoreWorkRequest;
 
 class WorkController extends Controller
 {
@@ -14,7 +16,12 @@ class WorkController extends Controller
      */
     public function index()
     {
-        //
+        $work_response = WorkResource::collection(Work::all());
+        return response()->json([
+            'success' => true,
+            'message' => 'succeeded in retrieving the work list.',
+            $work_response
+        ], 200);
     }
 
     /**
@@ -23,8 +30,16 @@ class WorkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreWorkRequest $request)
     {
+        $work = new Work;
+        $work->fill($request->skillAttributes());
+        $work->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Registration was successful.'
+        ], 201);
     }
 
     /**

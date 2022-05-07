@@ -14,7 +14,7 @@ class Work extends Model
         'created_at'
     ];
 
-    public function image()
+    public function images()
     {
         return $this->hasMany(Image::class);
     }

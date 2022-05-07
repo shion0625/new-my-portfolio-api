@@ -22,6 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('skills', SkillController::class)->except(['show']);
 
-Route::apiResource('works', WorkController::class)->except(['show']);
+Route::apiResource('works', WorkController::class);
 
 Route::apiResource('images', ImageApiController::class)->except(['show']);
