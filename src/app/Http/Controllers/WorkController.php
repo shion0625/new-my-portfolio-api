@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Http\Resources\WorkResource;
 use App\Http\Requests\Work\StoreWorkRequest;
 use App\Http\Requests\Work\UpdateWorkRequest;
+use Storage;
 
 class WorkController extends Controller
 {
@@ -29,7 +30,7 @@ class WorkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param App\Http\Requests\Work\StoreWorkRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreWorkRequest $request)
@@ -47,7 +48,7 @@ class WorkController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,22 +72,22 @@ class WorkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param App\Http\Requests\Work\UpdateWorkRequest $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateWorkRequest $request, $id)
     {
         if(Work::where('id',$id)->exists()){
             $work = Work::find($id);
-            $work->genre = is_null($request->genre) ? $work->genre : $request->genre;
-            $work->title = is_null($request->title) ? $work->title : $request->title;
-            $work->summary = is_null($request->summary) ? $work->summary : $request->summary;
-            $work->period = is_null($request->period) ? $work->period : $request->period;
-            $work->number = is_null($request->number) ? $work->number : $request->number;
-            $work->language = is_null($request->language) ? $work->language : $request->language;
-            $work->comment = is_null($request->comment) ? $work->comment : $request->comment;
-            $work->url = is_null($request->url) ? $work->url : $request->url;
+            $work->genre = null === $request->genre ? $work->genre : $request->genre;
+            $work->title = null === $request->title ? $work->title : $request->title;
+            $work->summary = null === $request->summary ? $work->summary : $request->summary;
+            $work->period = null === $request->period ? $work->period : $request->period;
+            $work->number = null === $request->number ? $work->number : $request->number;
+            $work->language = null === $request->language ? $work->language : $request->language;
+            $work->comment = null === $request->comment ? $work->comment : $request->comment;
+            $work->url = null === $request->url ? $work->url : $request->url;
             $work->save();
             return response()->json([
                 'success' => true,
@@ -103,7 +104,7 @@ class WorkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -112,7 +113,7 @@ class WorkController extends Controller
             $work = Work::find($id);
             $images = Image::whereWork_id($id)->select('path')->get();
             foreach($images as $image){
-                \Storage::disk('public')->delete($image->path);
+                Storage::disk('public')->delete($image->path);
             }
             $work->images()->delete();
             $work->delete();

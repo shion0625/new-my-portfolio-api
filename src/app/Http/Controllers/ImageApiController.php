@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Image;
+use Storage;
 
 class ImageApiController extends Controller
 {
@@ -20,12 +21,12 @@ class ImageApiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        if(is_null($request->imgpath)){
+        if(null === $request->imgpath){
             return response()->json([
                 'success' => false,
                 'message' => 'Image cannot find',
@@ -47,8 +48,8 @@ class ImageApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -76,14 +77,14 @@ class ImageApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         if(Image::where('id', $id)->exists()) {
             $image = Image::find($id);
-            \Storage::disk('public')->delete($image->path);
+            Storage::disk('public')->delete($image->path);
             $image->delete();
             return response()->json([
                 'success' => true,
