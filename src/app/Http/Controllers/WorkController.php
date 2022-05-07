@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Work;
+use App\Models\Image;
 use App\Http\Resources\WorkResource;
 use App\Http\Requests\Work\StoreWorkRequest;
 use App\Http\Requests\Work\UpdateWorkRequest;
@@ -107,6 +108,23 @@ class WorkController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Work::where('id', $id)->exists()) {
+            $work = Work::find($id);
+            $images = Image::whereWork_id($id)->select('path')->get();
+            foreach($images as $image){
+                \Storage::disk('public')->delete($image->path);
+            }
+            $work->images()->delete();
+            $work->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'records delete successfully',
+            ], 202);
+        } else {
+            return response()->json([
+            'success' => false,
+            "message" => "work not found"
+            ], 404);
+        }
     }
 }
