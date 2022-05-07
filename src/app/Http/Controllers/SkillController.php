@@ -56,9 +56,9 @@ class SkillController extends Controller
     {
         if(Skill::where('id',$id)->exists()){
             $skill = Skill::find($id);
-            $skill->category = null === $request->category ? $skill->category : $request->category;
-            $skill->language = null === $request->language ? $skill->language : $request->language;
-            $skill->experience = null === $request->experience ? $skill->experience : $request->experience;
+            $skill->category = is_null($request->category) ? $skill->category : $request->category;
+            $skill->language = is_null($request->language) ? $skill->language : $request->language;
+            $skill->experience = is_null($request->experience) ? $skill->experience : $request->experience;
             $skill->save();
         return response()->json([
                 'success' => true,
