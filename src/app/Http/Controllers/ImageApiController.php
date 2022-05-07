@@ -25,8 +25,14 @@ class ImageApiController extends Controller
      */
     public function store(Request $request)
     {
+        if(is_null($request->imgpath)){
+            return response()->json([
+                'success' => false,
+                'message' => 'Image cannot find',
+            ], 404);
+        }
             $file_name = time() . '.' .$request->imgpath->getClientOriginalName();
-            $img=$request->imgpath->storeAs('',$file_name,'public');
+            $request->imgpath->storeAs('',$file_name,'public');
             $image = new Image();
             $image->work_id = $request->work_id;
             $image->title = $request->imgpath->getClientOriginalName();
@@ -49,7 +55,7 @@ class ImageApiController extends Controller
     {
         if(Image::where('id',$id)->exists()){
             $file_name = time() . '.' .$request->imgpath->getClientOriginalName();
-            $img=$request->imgpath->storeAs('',$file_name,'public');
+            $request->imgpath->storeAs('',$file_name,'public');
             $image = new Image();
             $image->work_id = $request->work_id;
             $image->title = $request->imgpath->getClientOriginalName();
