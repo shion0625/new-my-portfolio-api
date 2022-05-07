@@ -13,11 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
+        Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('category');
-            $table->string('language',50)->unique();
-            $table->float('experience',5,1);
+            $table->integer('genre')->length(2);
+            $table->string('title',50);
+            $table->text('summary');
+            $table->integer('period');//18ヶ月のように
+            $table->integer('number');
+            $table->string('language');
+            $table->text('comment');
+            $table->string('url');
             $table->timestamps();
         });
     }
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skills');
+        Schema::dropIfExists('works');
     }
 };
