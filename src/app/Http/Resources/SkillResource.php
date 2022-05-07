@@ -19,6 +19,7 @@ class SkillResource extends JsonResource
                 'type' => 'skill',
                 'category' => $this->category,
                 'attributes' => [
+                    'id'=>$this->id,
                     'language' => $this->language,
                     'experience' => $this->experience,
                 ],

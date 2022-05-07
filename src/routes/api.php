@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('skills', SkillController::class)->except(['create']);
+Route::apiResource('skills', SkillController::class)->except(['show']);
