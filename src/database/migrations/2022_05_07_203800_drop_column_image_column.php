@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
-            $table->increments('id');
-            $table->tinyInteger('category');
-            $table->string('language',50)->unique();
-            $table->float('experience',5,1);
-            $table->timestamps();
+        Schema::table('works', function (Blueprint $table) {
+            $table->dropColumn('image_title');
+            $table->dropColumn('image_file_path');
+
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -29,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skills');
+        Schema::table('works', function (Blueprint $table) {
+            //
+        });
     }
 };
