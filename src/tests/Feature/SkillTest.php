@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Skill;
 
 class SkillTest extends TestCase
 {
@@ -30,6 +31,7 @@ class SkillTest extends TestCase
             'success' => true,
             'message' => 'Skill registration was successful.'
         ]);
+        $this->assertDatabaseHas('skills',$createData);
     }
 
     public function test_update_skill(){
@@ -38,22 +40,38 @@ class SkillTest extends TestCase
             'language'=> "laravel,vue.js,nuxt.js",
             'experience'=>5,
         ];
-
-        $this->json('PUT', 'api/skills/2', $createData)
+        $id=2;
+        $skill = Skill::find($id);
+        $old_category=$skill->category;
+        $old_language=$skill->language;
+        $this->json('PUT', 'api/skills/'.$id, $createData)
         ->assertStatus(200)
         ->assertJsonFragment([
             'success' => true,
             'message' => 'Skill records update successfully'
         ]);
+        $this->assertDatabaseHas('skills',$createData);
+        $this->assertDatabaseMissing('skills', [
+            'category'=>$old_category,
+            'language'=>$old_language
+        ]);
     }
 
 
         public function test_destroy_skill(){
-        $this->json('DELETE', 'api/skills/3')
+        $id=3;
+        $skill = Skill::find($id);
+        $old_category=$skill->category;
+        $old_language=$skill->language;
+        $this->json('DELETE', 'api/skills/'.$id)
         ->assertStatus(202)
         ->assertJsonFragment([
             'success' => true,
             'message' => 'Skill records delete successfully'
+        ]);
+        $this->assertDatabaseMissing('skills', [
+            'category'=>$old_category,
+            'language'=>$old_language
         ]);
     }
 }
