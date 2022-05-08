@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Work;
 
 class WorkTest extends TestCase
 {
@@ -36,14 +37,23 @@ class WorkTest extends TestCase
             'success' => true,
             'message' => 'Work registration was successful.'
         ]);
+        $this->assertDatabaseHas('works',$createData);
     }
 
     public function test_show_work(){
-        $this->json('GET', 'api/works/1')
+        $id=1;
+        $work = Work::find($id);
+        $old_genre=$work->genre;
+        $old_title=$work->title;
+        $this->json('GET', 'api/works/'.$id)
         ->assertStatus(200)
         ->assertJsonFragment([
             'success' => true,
             "message" => 'get work successfully'
+        ]);
+        $this->assertDatabaseHas('works',[
+            'genre'=>$old_genre,
+            'title'=>$old_title
         ]);
     }
 
@@ -58,21 +68,38 @@ class WorkTest extends TestCase
             'comment'=>"it's update",
             'url'=> "https://readouble.com/laravel/8.x/ja/validation.html"
         ];
-        $this->json('PUT', 'api/works/2', $createData)
+        $id=2;
+        $work = Work::find($id);
+        $old_genre=$work->genre;
+        $old_title=$work->title;
+        $this->json('PUT', 'api/works/'.$id, $createData)
         ->assertStatus(200)
         ->assertJsonFragment([
             'success' => true,
             "message" => 'work records update successfully'
         ]);
+        $this->assertDatabaseHas('works',$createData);
+        $this->assertDatabaseMissing('works', [
+            'genre'=>$old_genre,
+            'title'=>$old_title
+        ]);
     }
 
 
-        public function test_destroy_work(){
-        $this->json('DELETE', 'api/works/3')
+    public function test_destroy_work(){
+        $id=3;
+        $work = Work::find($id);
+        $old_genre=$work->genre;
+        $old_title=$work->title;
+        $this->json('DELETE', 'api/works/'.$id)
         ->assertStatus(202)
         ->assertJsonFragment([
             'success' => true,
             'message' => 'work records delete successfully'
+        ]);
+        $this->assertDatabaseMissing('works', [
+            'genre'=>$old_genre,
+            'title'=>$old_title
         ]);
     }
 }
