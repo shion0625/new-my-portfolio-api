@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Database\Seeders;
 
@@ -15,6 +15,7 @@ class WorkTableSeeder extends Seeder
      */
     public function run()
     {
+        Work::truncate();
         Work::insert([
             'genre'=>1,
             'title'=>"title",

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Database\Seeders;
 
@@ -15,14 +15,15 @@ class ImageTableSeeder extends Seeder
      */
     public function run()
     {
+        Image::truncate();
         Image::insert([
-            'path'=>2,
-            'title'=>"c lang",
+            'path'=>'1651978452.109.jpeg',
+            'title'=>'109.jpeg',
             'work_id'=>1
         ]);
         Image::insert([
-            'path'=>3,
-            'title'=>"vue.js",
+            'path'=>'1651978498.LINE_P2019613_195329.jpg',
+            'title'=>'LINE_P2019613_195329.jpg',
             'work_id'=>1
         ]);
     }

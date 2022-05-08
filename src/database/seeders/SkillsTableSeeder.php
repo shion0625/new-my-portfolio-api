@@ -14,6 +14,7 @@ class SkillsTableSeeder extends Seeder
      */
     public function run()
     {
+        Skill::truncate();
         Skill::insert([
             'category'=>2,
             'language'=>"c lang",

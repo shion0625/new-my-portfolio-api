@@ -41,7 +41,7 @@ class SkillController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Registration was successful.'
+            'message' => 'Skill registration was successful.'
         ], 201);
     }
 
@@ -62,7 +62,7 @@ class SkillController extends Controller
             $skill->save();
         return response()->json([
                 'success' => true,
-                'message' => 'records update successfully',
+                'message' => 'Skill records update successfully',
             ], 200);
         } else{
             return response()->json([
@@ -85,7 +85,7 @@ class SkillController extends Controller
             $skill->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'records delete successfully',
+                'message' => 'Skill records delete successfully',
             ], 202);
         } else {
             return response()->json([

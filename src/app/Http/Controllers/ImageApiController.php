@@ -4,19 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Image;
+use App\Http\Requests\Image\StoreUpdateImageRequest;
 use Storage;
 
 class ImageApiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -24,25 +16,26 @@ class ImageApiController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateImageRequest $request)
     {
-        if(null === $request->imgpath){
+        if(null === $request->path){
             return response()->json([
                 'success' => false,
                 'message' => 'Image cannot find',
             ], 404);
         }
-            $file_name = time() . '.' .$request->imgpath->getClientOriginalName();
-            $request->imgpath->storeAs('',$file_name,'public');
+            $file_name = time() . '.' .$request->path->getClientOriginalName();
+            $request->path->storeAs('',$file_name,'public');
+
             $image = new Image();
             $image->work_id = $request->work_id;
-            $image->title = $request->imgpath->getClientOriginalName();
+            $image->title = $request->path->getClientOriginalName();
             $image->path = $file_name;
             $image->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Image successfully registered.',
-            ], 200);
+                'message' => 'image registration was successful.'
+            ], 201);
     }
 
     /**
@@ -52,20 +45,26 @@ class ImageApiController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateImageRequest $request, $id)
     {
+        if(null === $request->path){
+            return response()->json([
+                'success' => false,
+                'message' => 'Image cannot find',
+            ], 404);
+        }
         if(Image::where('id',$id)->exists()){
-            $file_name = time() . '.' .$request->imgpath->getClientOriginalName();
-            $request->imgpath->storeAs('',$file_name,'public');
+            $file_name = time() . '.' .$request->path->getClientOriginalName();
+            $request->path->storeAs('',$file_name,'public');
             $image = new Image();
             $image->work_id = $request->work_id;
-            $image->title = $request->imgpath->getClientOriginalName();
+            $image->title = $request->path->getClientOriginalName();
             $image->path = $file_name;
             $image->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Image successfully updated.',
-            ], 202);
+                'message' => 'image records update successfully'
+            ], 200);
         }else {
             return response()->json([
                 'success' => false,
@@ -88,7 +87,7 @@ class ImageApiController extends Controller
             $image->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'records delete successfully',
+                'message' => 'image records delete successfully'
             ], 202);
         } else {
             return response()->json([

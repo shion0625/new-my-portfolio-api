@@ -41,7 +41,7 @@ class WorkController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Registration was successful.'
+            'message' => 'Work registration was successful.'
         ], 201);
     }
 
@@ -91,7 +91,7 @@ class WorkController extends Controller
             $work->save();
             return response()->json([
                 'success' => true,
-                'message' => 'records update successfully',
+                'message' => 'work records update successfully',
             ], 200);
         } else{
             return response()->json([
@@ -119,7 +119,7 @@ class WorkController extends Controller
             $work->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'records delete successfully',
+                'message' => 'work records delete successfully',
             ], 202);
         } else {
             return response()->json([
