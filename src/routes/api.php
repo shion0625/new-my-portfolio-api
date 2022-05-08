@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\WorkController;
+use App\Http\Controllers\ImageApiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('skills', SkillController::class)->except(['show']);
+
+Route::apiResource('works', WorkController::class);
+
+// Route::post('images/{id}', [ImageApiController::class,'update']);
+Route::apiResource('images', ImageApiController::class)->except(['show']);
