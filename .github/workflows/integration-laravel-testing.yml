@@ -22,13 +22,13 @@ jobs:
         run: docker version
 
       - name: Cache Composer dependencies
-        id: cache
-        uses: actions/cache@v1
+        id: composer-cache
+        uses: actions/cache@v2
         with:
-          path: ./src/vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-
+            ${{ runner.os }}-php-
 
       - name: Docker Compose Build and Up
         run: |
