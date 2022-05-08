@@ -2,6 +2,8 @@ name: Laravel Testing
 
 on:
   pull_request:
+  schedule:
+    - cron:  '0 0 * * 1,4'
 
 jobs:
   laravel-testing:

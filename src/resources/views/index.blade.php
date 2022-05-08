@@ -7,7 +7,7 @@
     <form action="/api/images" enctype="multipart/form-data" method="post">
         @csrf
         <input type="hidden" name="work_id" value=3>
-        <input type="file" name="imgpath">
+        <input type="file" name="path">
         <input type="submit" value="アップロードする">
     </form>
 </html>

@@ -12,7 +12,6 @@ class Image extends Model
     protected $fillable = [
         'path',
         'work_id',
-        'title'
     ];
     public function work(){
         return $this->belongsTo(Work::class);

@@ -24,4 +24,5 @@ Route::apiResource('skills', SkillController::class)->except(['show']);
 
 Route::apiResource('works', WorkController::class);
 
+// Route::post('images/{id}', [ImageApiController::class,'update']);
 Route::apiResource('images', ImageApiController::class)->except(['show']);
