@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use App\Models\Image;
 
 class ImageTest extends TestCase
 {
@@ -14,7 +15,7 @@ class ImageTest extends TestCase
     public function test_store_image(){
         Storage::fake('public');
 
-        $file=UploadedFile::fake()->image('avatar.jpg');
+        $file=UploadedFile::fake()->image('tom.jpg');
         $file_name = time().'.'.$file->getClientOriginalName();
 
         $createData =[
@@ -28,6 +29,7 @@ class ImageTest extends TestCase
             'success' => true,
             'message' => 'image registration was successful.'
         ]);
+        $this->assertDatabaseHas('images', ['path' => $file_name]);
         Storage::disk('public')->assertExists($file_name);
     }
 
@@ -41,23 +43,35 @@ class ImageTest extends TestCase
             'path'=> $file,
             'work_id'=>2,
         ];
+        $id = 2;
+        $image=Image::find($id);
+        $old_file_name = $image->path;
 
-        $this->json('PUT', 'api/images/2', $createData)
+        $this->json('PUT', 'api/images/'.$id , $createData)
         ->assertStatus(200)
         ->assertJsonFragment([
             'success' => true,
             'message' => 'image records update successfully'
         ]);
+
+        $this->assertDatabaseHas('images', ['path' => $file_name]);
+        $this->assertDatabaseMissing('images', ['path' => $old_file_name]);
         Storage::disk('public')->assertExists($file_name);
+        Storage::disk('public')->assertMissing($old_file_name);
     }
 
 
         public function test_destroy_image(){
-        $this->json('DELETE', 'api/images/3')
+        $id = 1;
+        $image=Image::find($id);
+        $old_file_name = $image->path;
+        $this->json('DELETE', 'api/images/'.$id)
         ->assertStatus(202)
         ->assertJsonFragment([
             'success' => true,
             'message' => 'image records delete successfully'
         ]);
+        $this->assertDatabaseMissing('images', ['path' => $old_file_name]);
+        Storage::disk('public')->assertMissing($old_file_name);
     }
 }

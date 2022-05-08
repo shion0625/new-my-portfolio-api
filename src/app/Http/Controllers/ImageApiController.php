@@ -18,12 +18,6 @@ class ImageApiController extends Controller
      */
     public function store(StoreUpdateImageRequest $request)
     {
-        if(null === $request->path){
-            return response()->json([
-                'success' => false,
-                'message' => 'Image cannot find',
-            ], 404);
-        }
             $file_name = time() . '.' .$request->path->getClientOriginalName();
             $request->path->storeAs('',$file_name,'public');
 
@@ -47,16 +41,11 @@ class ImageApiController extends Controller
      */
     public function update(StoreUpdateImageRequest $request, $id)
     {
-        if(null === $request->path){
-            return response()->json([
-                'success' => false,
-                'message' => 'Image cannot find',
-            ], 404);
-        }
         if(Image::where('id',$id)->exists()){
+            $image=Image::find($id);
+            Storage::disk('public')->delete($image->path);
             $file_name = time() . '.' .$request->path->getClientOriginalName();
             $request->path->storeAs('',$file_name,'public');
-            $image = new Image();
             $image->work_id = $request->work_id;
             $image->title = $request->path->getClientOriginalName();
             $image->path = $file_name;
@@ -68,7 +57,7 @@ class ImageApiController extends Controller
         }else {
             return response()->json([
                 'success' => false,
-                "message" => "skill not found"
+                "message" => "image not found"
             ], 404);
         }
     }
