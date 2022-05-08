@@ -4,11 +4,6 @@ volumes:
   psysh-store:
 
 services:
-  db-testing:
-    build:
-      context: .
-      dockerfile: ./infra/docker/mysql/Dockerfile
-
   app:
     build:
       context: .
