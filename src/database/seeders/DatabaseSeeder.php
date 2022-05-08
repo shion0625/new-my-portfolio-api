@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Work;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            SkillsTableSeeder::class
+            SkillsTableSeeder::class,
+            UserTableSeeder::class,
+            ImageTableSeeder::class,
+            WorkTableSeeder::class
         ]);
     }
 }

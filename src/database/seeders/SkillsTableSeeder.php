@@ -15,13 +15,8 @@ class SkillsTableSeeder extends Seeder
     public function run()
     {
         Skill::insert([
-            'category'=>1,
-            'language'=>"php",
-            'experience'=>1.5
-        ]);
-        Skill::insert([
             'category'=>2,
-            'language'=>"javascript",
+            'language'=>"c lang",
             'experience'=>3
         ]);
         Skill::insert([
