@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\ImageApiController;
+use App\Http\Controllers\Api\MeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,6 +20,10 @@ use App\Http\Controllers\ImageApiController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/me', MeController::class);
 });
 
 Route::apiResource('skills', SkillController::class)->except(['show']);

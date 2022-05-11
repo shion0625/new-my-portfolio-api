@@ -41,19 +41,17 @@ class WorkTest extends TestCase
     }
 
     public function test_show_work(){
-        $id=1;
-        $work = Work::find($id);
-        $old_genre=$work->genre;
-        $old_title=$work->title;
-        $this->json('GET', 'api/works/'.$id)
+        $work = Work::factory()->create();
+
+        $this->json('GET', 'api/works/'.$work->id)
         ->assertStatus(200)
         ->assertJsonFragment([
             'success' => true,
             "message" => 'get work successfully'
         ]);
         $this->assertDatabaseHas('works',[
-            'genre'=>$old_genre,
-            'title'=>$old_title
+            'genre'=>$work->genre,
+            'title'=>$work->title,
         ]);
     }
 
@@ -68,11 +66,10 @@ class WorkTest extends TestCase
             'comment'=>"it's update",
             'url'=> "https://readouble.com/laravel/8.x/ja/validation.html"
         ];
-        $id=2;
-        $work = Work::find($id);
-        $old_genre=$work->genre;
-        $old_title=$work->title;
-        $this->json('PUT', 'api/works/'.$id, $createData)
+
+        $work = Work::factory()->create();
+
+        $this->json('PUT', 'api/works/'.$work->id, $createData)
         ->assertStatus(200)
         ->assertJsonFragment([
             'success' => true,
@@ -80,26 +77,24 @@ class WorkTest extends TestCase
         ]);
         $this->assertDatabaseHas('works',$createData);
         $this->assertDatabaseMissing('works', [
-            'genre'=>$old_genre,
-            'title'=>$old_title
+            'genre'=>$work->genre,
+            'title'=>$work->title
         ]);
     }
 
 
     public function test_destroy_work(){
-        $id=3;
-        $work = Work::find($id);
-        $old_genre=$work->genre;
-        $old_title=$work->title;
-        $this->json('DELETE', 'api/works/'.$id)
+        $work = Work::factory()->create();
+
+        $this->json('DELETE', 'api/works/'.$work->id)
         ->assertStatus(202)
         ->assertJsonFragment([
             'success' => true,
             'message' => 'work records delete successfully'
         ]);
         $this->assertDatabaseMissing('works', [
-            'genre'=>$old_genre,
-            'title'=>$old_title
+            'genre'=>$work->genre,
+            'title'=>$work->title
         ]);
     }
 }

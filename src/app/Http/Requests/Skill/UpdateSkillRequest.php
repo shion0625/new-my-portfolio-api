@@ -35,10 +35,10 @@ class UpdateSkillRequest extends FormRequest
     public function messages()
     {
         return [
-            'category.int' => 'カテゴリは数字で入力してください。',
-            'category.max' => 'カテゴリの数字は最大で10です。',
-            'language.string' => '言語は文字列で入力してください。',
-            'experience.numeric' => '経験年数を少数第一位まで入力してください。',
+            'category.int' => 'Please enter the category as a number.' ,
+            'category.max' => 'The maximum number of categories is 10.' ,
+            'language.string' => 'The language must be entered as a string.' ,
+            'experience.numeric' => 'Please enter years of experience to the first decimal place.' ,
         ];
     }
 
