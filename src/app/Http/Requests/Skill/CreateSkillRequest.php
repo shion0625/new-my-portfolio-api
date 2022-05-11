@@ -44,13 +44,13 @@ class CreateSkillRequest extends FormRequest
     public function messages()
     {
         return [
-            'category.required' => 'カテゴリを入力してください。',
-            'category.int' => 'カテゴリは数字で入力してください。',
-            'category.max' => 'カテゴリの数字は最大で10です。',
-            'language.required' => '言語を入力してください。',
-            'language.string' => '言語は文字列で入力してください。',
-            'experience.required' => '経験年数を入力してください。',
-            'experience.numeric' => '経験年数を少数第一位まで入力してください。',
+            'category.required' => 'Please enter a category.' ,
+            'category.int' => 'Please enter a category as a number.' ,
+            'category.max' => 'The maximum number of categories is 10.' ,
+            'language.required' => 'Please enter a language.' ,
+            'language.string' => 'Please enter the language as a string.' ,
+            'experience.required' => 'Please enter years of experience.' ,
+            'experience.numeric' => 'Please enter years of experience to the first decimal place.' ,
         ];
     }
 
