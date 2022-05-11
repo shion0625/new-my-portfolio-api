@@ -80,7 +80,6 @@ rollback-test:
 tinker:
 	docker compose exec app php artisan tinker
 test:
-	@make seed
 	docker compose exec app php artisan test
 list:
 	docker compose exec app php artisan route:list

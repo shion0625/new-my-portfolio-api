@@ -1,16 +1,23 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Work;
+use App\Models\User;
+
 
 class WorkTest extends TestCase
 {
+    use RefreshDatabase;
 
-    public function test_index_work(){
+    /**
+     * @return void
+     */
+    public function testIndexWorkSuccess():void
+    {
         $this->json('GET', 'api/works')
         ->assertStatus(200)
         ->assertJsonFragment([
@@ -19,7 +26,11 @@ class WorkTest extends TestCase
         ]);
     }
 
-    public function test_store_work(){
+    /**
+     * @return void
+     */
+    public function testStoreWorkSuccess():void
+    {
         $createData =[
             'genre'=>10,
             'title'=>"success",
@@ -31,7 +42,12 @@ class WorkTest extends TestCase
             'url'=> "https://qiita.com/ucan-lab/items/42c1814d8bd69895374c"
         ];
 
-        $this->json('POST', 'api/works', $createData)
+        $user = User::factory()->create([
+            'email' => 'test@example.com'
+        ]);
+
+        $this->actingAs($user)
+        ->postJson('api/works', $createData)
         ->assertStatus(201)
         ->assertJsonFragment([
             'success' => true,
@@ -40,7 +56,11 @@ class WorkTest extends TestCase
         $this->assertDatabaseHas('works',$createData);
     }
 
-    public function test_show_work(){
+    /**
+     * @return void
+     */
+    public function testShowWorkSuccess():void
+    {
         $work = Work::factory()->create();
 
         $this->json('GET', 'api/works/'.$work->id)
@@ -55,7 +75,11 @@ class WorkTest extends TestCase
         ]);
     }
 
-    public function test_update_work(){
+    /**
+     * @return void
+     */
+    public function testUpdateWorkSuccess():void
+    {
         $createData =[
             'genre'=>12,
             'title'=>"update",
@@ -66,10 +90,14 @@ class WorkTest extends TestCase
             'comment'=>"it's update",
             'url'=> "https://readouble.com/laravel/8.x/ja/validation.html"
         ];
-
         $work = Work::factory()->create();
 
-        $this->json('PUT', 'api/works/'.$work->id, $createData)
+        $user = User::factory()->create([
+            'email' => 'test@example.com'
+        ]);
+
+        $this->actingAs($user)
+        ->putJson('api/works/'.$work->id, $createData)
         ->assertStatus(200)
         ->assertJsonFragment([
             'success' => true,
@@ -82,11 +110,18 @@ class WorkTest extends TestCase
         ]);
     }
 
-
-    public function test_destroy_work(){
+    /**
+     * @return void
+     */
+    public function testDestroyWork():void
+    {
         $work = Work::factory()->create();
+        $user = User::factory()->create([
+            'email' => 'test@example.com'
+        ]);
 
-        $this->json('DELETE', 'api/works/'.$work->id)
+        $this->actingAs($user)
+        ->deleteJson('api/works/'.$work->id)
         ->assertStatus(202)
         ->assertJsonFragment([
             'success' => true,
