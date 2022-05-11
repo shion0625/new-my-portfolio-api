@@ -34,11 +34,11 @@ class StoreUpdateImageRequest extends FormRequest
     public function messages()
     {
         return [
-            'path.required' => 'ファイルを入力してください。',
-            'path.image' => '画像の識別子が正しくありません。(jpg、png、bmp、gif、svg)',
-            'work_id.required' => '作品番号を入力してください。',
-            'work_id.numeric' => '作品番号を数値で入力してください。',
-            'work_id.min' => '作品番号は1以上の値で入力してください。',
+            'path.required' => 'Please enter a file.' ,
+            'path.image' => 'Incorrect image identifier. (jpg, png, bmp, gif, svg)',
+            'work_id.required' => 'Please enter the work number.' ,
+            'work_id.numeric' => 'Please enter the work number as a numeric value.' ,
+            'work_id.min' => 'Please enter the work number as a value greater than or equal to 1.' ,
         ];
     }
 

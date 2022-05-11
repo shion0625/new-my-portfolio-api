@@ -40,20 +40,20 @@ class UpdateWorkRequest extends FormRequest
     public function messages()
     {
         return [
-            'genre.numeric' => 'ジャンルを数値で入力してください。',
-            'genre.min' => 'ジャンルの数値の最小の値は0です。',
-            'genre.max' => 'ジャンルの数値の最大の値は15です。',
-            'title.string' => 'タイトルは文字列で入力してください。',
-            'title.max' => 'タイトルは25文字以内で入力してください。',
-            'summary.string' => '概要をを文字列で入力してください。',
-            'period.numeric' => '期間を数値で入力してください。',
-            'period.max' => '期間は0以上の値で入力してください。',
-            'number.numeric' => '人数は数値で入力してください。',
-            'number.min' => '人数の最小の値は0です。',
-            'language.string' => '言語を文字列で入力してください。',
-            'language.max' => '言語の最大文字数は100文字です。',
-            'comment.string' => 'コメントを文字列で入力してください。',
-            'url.url' => 'urlを正しい形式で入力してください。',
+            'genre.numeric' => 'Please enter the genre as a numeric value.' ,
+            'genre.min' => 'The minimum numeric value for genre is 0.' ,
+            'genre.max' => 'The maximum numeric value for a genre is 15.' ,
+            'title.string' => 'The title must be entered as a string.' ,
+            'title.max' => 'The title must be entered in 25 characters or less' , 'title.string' => 'The title must be entered in 25 characters or less' ,
+            'summary.string' => 'Please enter a summary as a string.' ,
+            'period.numeric' => 'Please enter the period as a number.' ,
+            'period.max' => 'Please enter the period as a value greater than or equal to zero.' ,
+            'number.numeric' => 'The number of people must be entered as a number.' ,
+            'number.min' => 'The minimum value for the number of people is 0.' ,
+            'language.string' => 'Please enter the language as a string.' ,
+            'language.max' => 'The maximum number of characters for a language is 100.' ,
+            'comment.string' => 'Please enter comment as string' , 'comment.string' => 'Please enter comment as string' ,
+            'url.url' => 'Please enter the url in the correct format.' ,
         ];
     }
 
