@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Image;
 use App\Http\Requests\Image\StoreUpdateImageRequest;
 use Storage;
+use Illuminate\Support\Str;
 
 class ImageApiController extends Controller
 {
@@ -18,18 +19,26 @@ class ImageApiController extends Controller
      */
     public function store(StoreUpdateImageRequest $request)
     {
-            $file_name = time() . '.' .$request->path->getClientOriginalName();
-            $request->path->storeAs('',$file_name,'public');
-
-            $image = new Image();
-            $image->work_id = $request->work_id;
-            $image->title = $request->path->getClientOriginalName();
-            $image->path = $file_name;
-            $image->save();
-            return response()->json([
-                'success' => true,
-                'message' => 'image registration was successful.'
-            ], 201);
+        $imageStorage = \Image::make($request->path);
+        $filename = 'upload_'. date('YmdHis') .'_'. Str::random(5);
+        $image_types = ['jpg', 'webp'];
+        $image = new Image();
+        $image->work_id = $request->work_id;
+        foreach ($image_types as $image_type) {
+            $upload_path = 'app/public/'. $image_type .'/'. $filename .'.'. $image_type;
+            $image_path = storage_path($upload_path);
+            $imageStorage->save($image_path);
+            if($image_type == 'jpg'){
+                $image->jpg_image = $image_type .'/'. $filename .'.'. $image_type;
+            } else if($image_type == 'webp'){
+                $image->webp_image = $image_type .'/'. $filename .'.'. $image_type;
+            }
+        }
+        $image->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'image registration was successful.'
+        ], 201);
     }
 
     /**
@@ -43,12 +52,21 @@ class ImageApiController extends Controller
     {
         if(Image::where('id',$id)->exists()){
             $image=Image::find($id);
-            Storage::disk('public')->delete($image->path);
-            $file_name = time() . '.' .$request->path->getClientOriginalName();
-            $request->path->storeAs('',$file_name,'public');
-            $image->work_id = $request->work_id;
-            $image->title = $request->path->getClientOriginalName();
-            $image->path = $file_name;
+            Storage::disk('public')->delete($image->jpg_image);
+            Storage::disk('public')->delete($image->webp_image);
+            $imageStorage = \Image::make($request->path);
+            $filename = 'upload_'. date('YmdHis') .'_'. Str::random(5);
+            $image_types = ['jpg', 'webp'];
+            foreach ($image_types as $image_type) {
+                $upload_path = 'app/public/'. $image_type .'/'. $filename .'.'. $image_type;
+                $image_path = storage_path($upload_path);
+                $imageStorage->save($image_path);
+                if($image_type == 'jpg'){
+                    $image->jpg_image = $image_type .'/'. $filename .'.'. $image_type;
+                } else if($image_type == 'webp'){
+                    $image->webp_image = $image_type .'/'. $filename .'.'. $image_type;
+                }
+            }
             $image->save();
             return response()->json([
                 'success' => true,
