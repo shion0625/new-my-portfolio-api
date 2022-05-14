@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
+use Storage;
 
 class ImageResource extends JsonResource
 {
@@ -15,10 +16,17 @@ class ImageResource extends JsonResource
      */
     public function toArray($request)
     {
+        $my_file =Storage::path('public/'.$this->path);
+        $bool = Storage::exists('public/'.$this->path);
+        if($bool){
+            $encoded_image = base64_encode(file_get_contents($my_file));
+        } else {
+            $encoded_image = false;
+        }
         return [
             'image_id' => $this->id,
             'title' => $this->title,
-            'path' => $this->path
+            'content' => $encoded_image,
         ];
     }
 }

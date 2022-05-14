@@ -17,12 +17,12 @@ class SkillsTableSeeder extends Seeder
         Skill::truncate();
         Skill::insert([
             'category'=>2,
-            'language'=>"c lang",
+            'language'=>"c++ lang",
             'experience'=>3
         ]);
         Skill::insert([
             'category'=>3,
-            'language'=>"vue.js",
+            'language'=>"vue.js nuxt laravel",
             'experience'=>1.5
         ]);
     }
