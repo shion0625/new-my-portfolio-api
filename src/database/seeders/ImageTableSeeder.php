@@ -17,14 +17,18 @@ class ImageTableSeeder extends Seeder
     {
         Image::truncate();
         Image::insert([
-            'path'=>'1651978452.109.jpeg',
-            'title'=>'109.jpeg',
-            'work_id'=>1
+            'jpg_image'=>'jpg/upload_20220514155226_O1e7d.jpg',
+            'webp_image'=>'webp/upload_20220514155226_O1e7d.webp ',
+            'work_id'=>1,
+            'created_at'=> '2022-05-14 15:52:27',
+            'updated_at'=> '2022-05-14 15:52:27',
         ]);
         Image::insert([
-            'path'=>'1651978498.LINE_P2019613_195329.jpg',
-            'title'=>'LINE_P2019613_195329.jpg',
-            'work_id'=>1
+            'jpg_image'=>'jpg/upload_20220514155239_cgS4I.jpg',
+            'webp_image'=>'webp/upload_20220514155239_cgS4I.webp',
+            'work_id'=>1,
+            'created_at'=> '2022-05-14 15:52:39',
+            'updated_at'=> '2022-05-14 15:52:39',
         ]);
     }
 }

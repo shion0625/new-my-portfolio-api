@@ -10,8 +10,9 @@ class Image extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'path',
         'work_id',
+        'jpg_image',
+        'webp_image'
     ];
     public function work(){
         return $this->belongsTo(Work::class);
