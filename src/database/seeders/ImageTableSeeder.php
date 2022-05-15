@@ -26,7 +26,7 @@ class ImageTableSeeder extends Seeder
         Image::insert([
             'jpg_image'=>'jpg/upload_20220514155239_cgS4I.jpg',
             'webp_image'=>'webp/upload_20220514155239_cgS4I.webp',
-            'work_id'=>1,
+            'work_id'=>2,
             'created_at'=> '2022-05-14 15:52:39',
             'updated_at'=> '2022-05-14 15:52:39',
         ]);
