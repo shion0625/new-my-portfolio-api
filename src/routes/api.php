@@ -24,9 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', MeController::class);
+    Route::apiResource('images', ImageApiController::class)->except(['show']);
 });
 
-Route::apiResource('images', ImageApiController::class)->except(['show']);
 Route::apiResource('skills', SkillController::class)->except(['show']);
 
 Route::apiResource('works', WorkController::class);

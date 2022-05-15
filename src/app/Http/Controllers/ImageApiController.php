@@ -28,9 +28,9 @@ class ImageApiController extends Controller
             $upload_path = 'app/public/'. $image_type .'/'. $filename .'.'. $image_type;
             $image_path = storage_path($upload_path);
             $imageStorage->save($image_path);
-            if($image_type == 'jpg'){
+            if($image_type === 'jpg'){
                 $image->jpg_image = $image_type .'/'. $filename .'.'. $image_type;
-            } else if($image_type == 'webp'){
+            } else if($image_type === 'webp'){
                 $image->webp_image = $image_type .'/'. $filename .'.'. $image_type;
             }
         }
@@ -61,9 +61,9 @@ class ImageApiController extends Controller
                 $upload_path = 'app/public/'. $image_type .'/'. $filename .'.'. $image_type;
                 $image_path = storage_path($upload_path);
                 $imageStorage->save($image_path);
-                if($image_type == 'jpg'){
+                if($image_type === 'jpg'){
                     $image->jpg_image = $image_type .'/'. $filename .'.'. $image_type;
-                } else if($image_type == 'webp'){
+                } else if($image_type === 'webp'){
                     $image->webp_image = $image_type .'/'. $filename .'.'. $image_type;
                 }
             }

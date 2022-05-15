@@ -19,7 +19,11 @@ class WorkTableSeeder extends Seeder
         Work::insert([
             'genre'=>1,
             'title'=>"title",
-            'summary'=>"summary",
+            'summary'=>"twitterと少しのslackを合わせたものを作成しまいた。
+            自分が学んできたものでどの程度のものが作成できるのか知りたかったからです。
+            ここで学んだことを活かしたいです。twitterと少しのslackを合わせたものを作成しまいた。
+            自分が学んできたものでどの程度のものが作成できるのか知りたかったからです。
+            ここで学んだことを活かしたいです。",
             'period'=>2,
             'number'=>1,
             'language'=> "php,javascript,nuxt",
@@ -29,7 +33,8 @@ class WorkTableSeeder extends Seeder
         Work::insert([
             'genre'=>2,
             'title'=>"genre 2",
-            'summary'=>"web application",
+            'summary'=>"少し前まで生のPHPを
+            使用して作成していたのでLaravelの",
             'period'=>20,
             'number'=>10,
             'language'=> "php,javascript,typescript",
