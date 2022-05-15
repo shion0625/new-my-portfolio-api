@@ -92,6 +92,7 @@ class WorkController extends Controller
             $work->language = null === $request->language ? $work->language : $request->language;
             $work->comment = null === $request->comment ? $work->comment : $request->comment;
             $work->url = null === $request->url ? $work->url : $request->url;
+            $work->source_code_url = null === $request->source_code_url ? $work->source_code_url : $request->source_code_url;
             $work->save();
             return response()->json([
                 'success' => true,
