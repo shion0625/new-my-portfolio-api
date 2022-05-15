@@ -26,7 +26,7 @@ class WorkTableSeeder extends Seeder
             ここで学んだことを活かしたいです。",
             'period'=>2,
             'number'=>1,
-            'language'=> "php,javascript,nuxt",
+            'language'=> "php,javascript/nuxt.laravel vue",
             'comment'=>"it's hard",
             'url'=> "https://qiita.com/ucan-lab/items/42c1814d8bd69895374c",
             'source_code_url'=>'https://github.com/shion0625/new-my-portfolio-api',
