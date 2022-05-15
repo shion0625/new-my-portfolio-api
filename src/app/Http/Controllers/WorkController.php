@@ -116,9 +116,13 @@ class WorkController extends Controller
     {
         if(Work::where('id', $id)->exists()) {
             $work = Work::find($id);
-            $images = Image::whereWork_id($id)->select('path')->get();
+            $images = Image::whereWork_id($id)->select('jpg_image')->get();
             foreach($images as $image){
-                Storage::disk('public')->delete($image->path);
+                Storage::disk('public')->delete($image->jpg_image);
+            }
+            $images = Image::whereWork_id($id)->select('webp_image')->get();
+            foreach($images as $image){
+                Storage::disk('public')->delete($image->webp_image);
             }
             $work->images()->delete();
             $work->delete();

@@ -17,7 +17,7 @@ class WorkFactory extends Factory
     public function definition()
     {
         return [
-            'genre'=>$this->faker->randomNumber(2, false),
+            'genre'=>$this->faker->title(),
             'title'=>$this->faker->title(),
             'summary'=>$this->faker->sentence(6, true),
             'period'=>$this->faker->randomNumber(3,false),
@@ -25,6 +25,7 @@ class WorkFactory extends Factory
             'language'=>$this->faker->sentence(2, true),
             'comment'=>$this->faker->sentence(6, true),
             'url'=>$this->faker->url(),
+            'source_code_url'=>$this->faker->url(),
         ];
     }
 }

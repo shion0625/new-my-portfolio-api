@@ -90,7 +90,8 @@ class ImageApiController extends Controller
     {
         if(Image::where('id', $id)->exists()) {
             $image = Image::find($id);
-            Storage::disk('public')->delete($image->path);
+            Storage::disk('public')->delete($image->jpg_image);
+            Storage::disk('public')->delete($image->webp_image);
             $image->delete();
             return response()->json([
                 'success' => true,
