@@ -28,6 +28,7 @@ class WorkResource extends JsonResource
                     'language' => $this->language,
                     'comment' => $this->comment,
                     'url' => $this->url,
+                    'source_code_url' => $this->source_code_url,
                     'created' => $this->created_at,
                     'updated' => $this->updated_at
                 ],

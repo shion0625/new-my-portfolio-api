@@ -19,17 +19,23 @@ class UserTableSeeder extends Seeder
         User::insert([
             'name'=>'kaito',
             'email'=>"php@example.com",
-            'password'=>'kaito'
+            'password'=>'kaito',
+            'created_at'=> '2022-05-14 15:52:39',
+            'updated_at'=> '2022-05-14 15:52:39',
         ]);
         User::insert([
             'name'=>'yodogawa',
             'email'=>"js@example.com",
-            'password'=>'yodogawa'
+            'password'=>'yodogawa',
+            'created_at'=> '2022-05-14 15:52:39',
+            'updated_at'=> '2022-05-14 15:52:39',
         ]);
         User::insert([
             'name'=>'tom',
             'email'=>"tom@example.com",
-            'password'=>'tom'
+            'password'=>'tom',
+            'created_at'=> '2022-05-14 15:52:39',
+            'updated_at'=> '2022-05-14 15:52:39',
         ]);
     }
 }
