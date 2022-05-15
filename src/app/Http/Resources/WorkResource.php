@@ -16,6 +16,7 @@ class WorkResource extends JsonResource
      */
     public function toArray($request)
     {
+        $language = preg_split("/[,.\/ ]/",$this->language);
         return [
             'data'=> [
                 'type' => 'work',
@@ -25,12 +26,11 @@ class WorkResource extends JsonResource
                     'summary' => $this->summary,
                     'period' => $this->period,
                     'number' => $this->number,
-                    'language' => $this->language,
+                    'language' => $language,
                     'comment' => $this->comment,
                     'url' => $this->url,
                     'source_code_url' => $this->source_code_url,
                     'created' => $this->created_at,
-                    'updated' => $this->updated_at
                 ],
                 'image' => ImageResource::collection($this->images->all())
             ],

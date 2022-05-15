@@ -32,14 +32,15 @@ class WorkTest extends TestCase
     public function testStoreWorkSuccess():void
     {
         $createData =[
-            'genre'=>10,
+            'genre'=>"web アプリケーション",
             'title'=>"success",
             'summary'=>"success primary",
             'period'=>2,
             'number'=>1,
             'language'=> "php,vue.js,nuxt.js",
             'comment'=>"it's success",
-            'url'=> "https://qiita.com/ucan-lab/items/42c1814d8bd69895374c"
+            'url'=> "https://qiita.com/ucan-lab/items/42c1814d8bd69895374c",
+            'source_code_url'=>'https://github.com/shion0625/new-my-portfolio-api',
         ];
 
         $user = User::factory()->create([
@@ -81,14 +82,15 @@ class WorkTest extends TestCase
     public function testUpdateWorkSuccess():void
     {
         $createData =[
-            'genre'=>12,
+            'genre'=>"web アプリケーション",
             'title'=>"update",
             'summary'=>"update primary",
             'period'=>2,
             'number'=>1,
             'language'=> "php,vue.js,nuxt.js",
             'comment'=>"it's update",
-            'url'=> "https://readouble.com/laravel/8.x/ja/validation.html"
+            'url'=> "https://readouble.com/laravel/8.x/ja/validation.html",
+            'source_code_url'=>'https://github.com/shion0625/new-my-portfolio-api',
         ];
         $work = Work::factory()->create();
 
