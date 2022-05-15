@@ -42,7 +42,7 @@ class StoreWorkRequest extends FormRequest
     {
         return [
             'genre.required' => 'Please enter a genre.' ,
-            'genre.string' => 'Please enter a numeric genre.' ,
+            'genre.string' => 'Please enter a string genre.' ,
             'genre.max' => 'Please enter a genre of 40 characters or less.' ,
             'title.required' => 'Please enter a title.' ,
             'title.string' => 'Please enter the title as a string.' ,
