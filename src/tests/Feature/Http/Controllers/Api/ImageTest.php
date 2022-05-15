@@ -20,7 +20,6 @@ class ImageTest extends TestCase
     {
         Storage::fake('public');
         $file=UploadedFile::fake()->image('tom.jpg');
-        $file_name = time().'.'.$file->getClientOriginalName();
         $createData =[
             'path'=> $file,
             'work_id'=>2,
@@ -37,8 +36,11 @@ class ImageTest extends TestCase
                 'success' => true,
                 'message' => 'image registration was successful.'
             ]);
-        $this->assertDatabaseHas('images', ['path' => $file_name]);
-        Storage::disk('public')->assertExists($file_name);
+        if(Image::where('id',1)->exists()){
+            $image = Image::find(1);
+            $this->assertDatabaseHas('images', ['jpg_image' => $image->jpg_image]);
+            $this->assertDatabaseHas('images', ['webp_image' => $image->webp_image]);
+        }
     }
 
     /**
@@ -49,8 +51,7 @@ class ImageTest extends TestCase
         Storage::fake('public');
 
         $file=UploadedFile::fake()->image('avatar.jpg');
-        $file_name = time().'.'.$file->getClientOriginalName();
-        $image = Image::factory()->create(['path' => $file]);
+        $image = Image::factory()->create();
 
         $createData =[
             'path'=> $file,
@@ -68,10 +69,13 @@ class ImageTest extends TestCase
                 'message' => 'image records update successfully',
             ]);
 
-        $this->assertDatabaseHas('images', ['path' => $file_name]);
-        $this->assertDatabaseMissing('images', ['path' => $image->path]);
-        Storage::disk('public')->assertExists($file_name);
-        Storage::disk('public')->assertMissing($image->path);
+        if(Image::where('id',1)->exists()){
+            $imageFind = Image::find(1);
+            $this->assertDatabaseHas('images', ['jpg_image' => $imageFind->jpg_image]);
+            $this->assertDatabaseHas('images', ['webp_image' => $imageFind->webp_image]);
+        }
+        $this->assertDatabaseMissing('images', ['jpg_image' => $image->jpg_image]);
+        $this->assertDatabaseMissing('images', ['webp_image' => $image->webp_image]);
     }
 
         /**
@@ -79,8 +83,7 @@ class ImageTest extends TestCase
          */
         public function test_destroy_image():void
         {
-        $file=UploadedFile::fake()->image('avatar.jpg');
-        $image = Image::factory()->create(['path' => $file]);
+        $image = Image::factory()->create();
         $user = User::factory()->create([
             'email' => 'test@example.com'
         ]);
@@ -92,7 +95,6 @@ class ImageTest extends TestCase
                 'success' => true,
                 'message' => 'image records delete successfully'
             ]);
-        $this->assertDatabaseMissing('images', ['path' => $image->path]);
-        Storage::disk('public')->assertMissing($image->path);
+        $this->assertDatabaseMissing('images', ['jpg_image' => $image->jpg_image]);
     }
 }

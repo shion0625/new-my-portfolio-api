@@ -17,11 +17,9 @@ class ImageFactory extends Factory
      */
     public function definition()
     {
-        $file=UploadedFile::fake()->image('tom.jpg');
-        $file_name = time().'.'.$file->getClientOriginalName();
         return [
-            'path' =>$file_name,
-            'title'=> $this->faker->title(),
+            'jpg_image'=> $this->faker->title().'jpg',
+            'webp_image'=> $this->faker->title().'webp',
             'work_id'=>$this->faker->randomDigit(),
         ];
     }

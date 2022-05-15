@@ -18,12 +18,16 @@ class SkillsTableSeeder extends Seeder
         Skill::insert([
             'category'=>2,
             'language'=>"c++ lang",
-            'experience'=>3
+            'experience'=>3,
+            'created_at'=> '2022-05-14 15:52:39',
+            'updated_at'=> '2022-05-14 15:52:39',
         ]);
         Skill::insert([
             'category'=>3,
             'language'=>"vue.js nuxt laravel",
-            'experience'=>1.5
+            'experience'=>1.5,
+            'created_at'=> '2022-05-14 15:52:39',
+            'updated_at'=> '2022-05-14 15:52:39',
         ]);
     }
 }

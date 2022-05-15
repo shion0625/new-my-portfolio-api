@@ -21,8 +21,11 @@ RUN apt-get update \
     libzip-dev \
     libicu-dev \
     libonig-dev \
+    zlib1g-dev \
+    libpng-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
+    libwebp-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && locale-gen ja_JP.UTF-8 \
@@ -32,7 +35,7 @@ RUN apt-get update \
     pdo_mysql \
     zip \
     bcmath \
-  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp\
   && docker-php-ext-install -j$(nproc) gd \
   && composer config -g process-timeout 3600 \
   && composer config -g repos.packagist composer https://packagist.org

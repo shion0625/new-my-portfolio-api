@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('genre')->length(2);
+            $table->string('genre',50);
             $table->string('title',50);
             $table->text('summary');
             $table->integer('period');//18ヶ月のように
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('language');
             $table->text('comment');
             $table->string('url');
+            $table->string('source_code_url');
             $table->timestamps();
         });
     }

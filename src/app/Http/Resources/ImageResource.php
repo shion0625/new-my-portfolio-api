@@ -16,17 +16,21 @@ class ImageResource extends JsonResource
      */
     public function toArray($request)
     {
-        $my_file =Storage::path('public/'.$this->path);
-        $bool = Storage::exists('public/'.$this->path);
-        if($bool){
-            $encoded_image = base64_encode(file_get_contents($my_file));
+        $file_jpg =Storage::path('public/'.$this->jpg_image);
+        $file_webp =Storage::path('public/'.$this->webp_image);
+        $is_exist_jpg = Storage::exists('public/'.$this->jpg_image);
+        $is_exist_webp = Storage::exists('public/'.$this->webp_image);
+        if($is_exist_jpg && $is_exist_webp){
+            $encoded_jpg = base64_encode(file_get_contents($file_jpg));
+            $encoded_webp = base64_encode(file_get_contents($file_webp));
         } else {
-            $encoded_image = false;
+            $encoded_jpg = false;
+            $encoded_webp = false;
         }
         return [
             'image_id' => $this->id,
-            'title' => $this->title,
-            'content' => $encoded_image,
+            'image_jpg' => $encoded_jpg,
+            'image_webp' => $encoded_webp,
         ];
     }
 }

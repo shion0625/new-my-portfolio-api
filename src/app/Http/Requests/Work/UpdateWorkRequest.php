@@ -26,25 +26,26 @@ class UpdateWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            'genre'=>['numeric','min:0','max:15'],
-            'title'=>['string','max:25'],
-            'summary'=>['string'],
-            'period'=>['numeric','min:0'],
-            'number'=>['numeric','min:0'],
-            'language'=>['string','max:100'],
+            'genre'=>['required','string','max:40'],
+            'title'=>['required','string','max:40'],
+            'summary'=>['required','string'],
+            'period'=>['required','numeric','min:0'],
+            'number'=>['required','numeric','min:0'],
+            'language'=>['required','string','max:100'],
             'comment'=>['string'],
-            'url'=>['url']
+            'url'=>['required','url'],
+            'source_code_url'=>['required','url']
         ];
     }
 
     public function messages()
     {
         return [
-            'genre.numeric' => 'Please enter the genre as a numeric value.' ,
-            'genre.min' => 'The minimum numeric value for genre is 0.' ,
-            'genre.max' => 'The maximum numeric value for a genre is 15.' ,
+            'genre.string' => 'Please enter a string genre.' ,
+            'genre.max' => 'Please enter a genre of 40 characters or less.' ,
             'title.string' => 'The title must be entered as a string.' ,
-            'title.max' => 'The title must be entered in 25 characters or less' , 'title.string' => 'The title must be entered in 25 characters or less' ,
+            'title.max' => 'Please enter a title of 40 characters or less.' ,
+            'title.string' => 'The title must be entered in 25 characters or less' ,
             'summary.string' => 'Please enter a summary as a string.' ,
             'period.numeric' => 'Please enter the period as a number.' ,
             'period.max' => 'Please enter the period as a value greater than or equal to zero.' ,
@@ -54,6 +55,8 @@ class UpdateWorkRequest extends FormRequest
             'language.max' => 'The maximum number of characters for a language is 100.' ,
             'comment.string' => 'Please enter comment as string' , 'comment.string' => 'Please enter comment as string' ,
             'url.url' => 'Please enter the url in the correct format.' ,
+            'source_code_url.required' => 'Please enter the source code url.' ,
+            'source_code_url.url' => 'Please enter the source code url in the correct format.' ,
         ];
     }
 
@@ -67,7 +70,8 @@ class UpdateWorkRequest extends FormRequest
             'number',
             'language',
             'comment',
-            'url'
+            'url',
+            'source_code_url'
         ]);
     }
 

@@ -26,14 +26,15 @@ class StoreWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            'genre'=>['required','numeric','min:0','max:15'],
-            'title'=>['required','string','max:25'],
+            'genre'=>['required','string','max:40'],
+            'title'=>['required','string','max:40'],
             'summary'=>['required','string'],
             'period'=>['required','numeric','min:0'],
             'number'=>['required','numeric','min:0'],
             'language'=>['required','string','max:100'],
             'comment'=>['string'],
-            'url'=>['required','url']
+            'url'=>['required','url'],
+            'source_code_url'=>['required','url']
         ];
     }
 
@@ -41,12 +42,11 @@ class StoreWorkRequest extends FormRequest
     {
         return [
             'genre.required' => 'Please enter a genre.' ,
-            'genre.numeric' => 'Please enter a numeric genre.' ,
-            'genre.min' => 'The minimum numeric value for genre is 0.' ,
-            'genre.max' => 'The maximum numeric value for a genre is 15.' ,
+            'genre.string' => 'Please enter a string genre.' ,
+            'genre.max' => 'Please enter a genre of 40 characters or less.' ,
             'title.required' => 'Please enter a title.' ,
             'title.string' => 'Please enter the title as a string.' ,
-            'title.max' => 'Please enter a title of 25 characters or less.' ,
+            'title.max' => 'Please enter a title of 40 characters or less.' ,
             'summary.required' => 'Please enter a summary.' ,
             'summary.string' => 'Please enter a summary as a string.' ,
             'period.required' => 'Please enter a period of time.' ,
@@ -61,6 +61,8 @@ class StoreWorkRequest extends FormRequest
             'comment.string' => 'Please enter comment as string' , 'comment.string' => 'Please enter comment as string' ,
             'url.required' => 'Please enter the url.' ,
             'url.url' => 'Please enter the url in the correct format.' ,
+            'source_code_url.required' => 'Please enter the source code url.' ,
+            'source_code_url.url' => 'Please enter the source code url in the correct format.' ,
         ];
     }
 
@@ -74,7 +76,8 @@ class StoreWorkRequest extends FormRequest
             'number',
             'language',
             'comment',
-            'url'
+            'url',
+            'source_code_url'
         ]);
     }
 
